@@ -1,15 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, Picker, TextInput, Alert, Button } from 'react-native';
-import { Header ,Input } from 'react-native-elements';
+import { StyleSheet, Text, View, Picker, TextInput, Button } from 'react-native';
+import { Header } from 'react-native-elements';
 
 export default function App() {
   const [selectedValue, setSelectedValue] = useState("temp");
   const [value, onChangeText] = useState('');
+  const [convValue, onCalcText] = useState('')
   return (
     <View style = {{flex: 1, justifyContent: 'flex-start'}}>
       <Header
-        leftComponent={{ icon: 'menu', color: '#fff' }}
+        containerStyle = {{backgroundColor: '#505050'}}
+        leftComponent={{ icon: 'menu', color: '#fff'}}
         centerComponent={{ text: 'Imperial Metric Converter', style: { color: '#fff' } }}
       />
       <View style = {{flex: 0.3}} />
@@ -19,10 +21,16 @@ export default function App() {
           selectedValue={selectedValue}
           style={{ height: 50, width: 200 }}
           mode="dialog"
-          onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+          onValueChange={(itemValue, itemIndex) => {setSelectedValue(itemValue);
+                                                    onChangeText("");
+                                                    onCalcText("");
+                                                  }}
         >
           <Picker.Item label="Temperature" value="temp"/>
-          <Picker.Item label="Size [inch]" value="size"/>
+          <Picker.Item label="Size" value="size"/>
+          <Picker.Item label="Cooking" value="cook"/>
+          <Picker.Item label="Volume" value="vol"/>
+          <Picker.Item label="Distance" value="dist"/>
         </Picker>
         <View style = {styles.inputField}>
           <TextInput 
@@ -32,22 +40,28 @@ export default function App() {
             onChangeText={text => onChangeText(text)}
             value={value}
           />
+          <View style = {{width: 15}}/>
           <TextInput 
             style = {styles.inputText}
             keyboardType="numeric"
             placeholder="Output"
             editable={false}
-            value={inch2cm(value)}
+            value={convValue}
           />
         </View>
         <Button
           disabled={value === ""}
           onPress={() => {if (selectedValue === "temp") {
-                            Alert.alert("Converted Value", fahrenheit2celsius(value) + " Celsius");
+                            onCalcText(fahrenheit2celsius(value));
                           } else if (selectedValue === "size") {
-                            Alert.alert("Converted Value", inch2cm(value) + " Centimeter");
+                            onCalcText(inch2cm(value));
+                          } else if (selectedValue === "cook") {
+                            onCalcText(cup2ml(value));
+                          } else if (selectedValue === "dist") {
+                            onCalcText(yard2m(value));
                           }
                   }}
+          color = '#505050'
           title="Convert!"
         />
       </View>
@@ -83,5 +97,13 @@ function fahrenheit2celsius(fahrenheit) {
 };
 function inch2cm(inch) {
   var result = inch * 2.54
+  return(result.toString())
+};
+function cup2ml(cup) {
+  var result = cup * 236.588
+  return(result.toString())
+};
+function yard2m(yard) {
+  var result = yard * 0.9144
   return(result.toString())
 };
