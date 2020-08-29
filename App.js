@@ -1,11 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
 import { Text, View, Picker, TextInput, TouchableOpacity } from 'react-native';
-import { Header } from 'react-native-elements';
+import { Header} from 'react-native-elements';
 import { styles } from './styles.js';
 import { fahrenheit2celsius, inch2cm, cup2ml, yard2m, ounce2ml } from "./converter_functions.js";
 
-var right_arrow = "\u2192";
+
+const right_arrow = "\u2192";
 
 export default function App() {
   const [selectedValue, setSelectedValue] = useState("temp");
@@ -14,17 +15,20 @@ export default function App() {
   return (
     <View style = {{flex: 1, justifyContent: 'flex-start'}}>
       <Header
-        containerStyle = {{backgroundColor: '#505050'}}
+        containerStyle = {{backgroundColor: '#483D8B'}}
         leftComponent={{ icon: 'menu', color: '#fff'}}
-        centerComponent={{ text: 'Imperial Metric Converter', style: { color: '#fff' } }}
+        centerComponent={{ text: 'Imperial Metric Converter', style: styles.header }}
       />
-      <View style = {{flex: 0.3}} />
+      <View style = {{flex: 0.3}}/>
       <View style = {styles.container}>
         <Picker
           prompt="Choose Unit to Convert"
           selectedValue={selectedValue}
           style={{ height: 50, width: 200 }}
           mode="dialog"
+          itemStyle={{
+            backgroundColor: "#C38D9E"            
+          }}
           onValueChange={(itemValue, itemIndex) => {setSelectedValue(itemValue);
                                                     onChangeText("");
                                                     onCalcText("");
@@ -74,7 +78,7 @@ export default function App() {
           <Text style={styles.buttontext}> Convert! </Text>
         </TouchableOpacity>
       </View>
-      <View style = {{flex: 0.3}} />
+      <View style = {{flex: 0.3}}/>
       <StatusBar style="light" />
     </View>
   );

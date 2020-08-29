@@ -1,6 +1,10 @@
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
+    header: {
+      color: '#fff',
+      fontSize: 18,
+    },
     container: {
       flex: 1,
       backgroundColor: '#fff',
@@ -12,7 +16,7 @@ export const styles = StyleSheet.create({
       flexDirection: 'row',
     },
     inputText:{
-      borderColor: 'gray',
+      borderColor: '#000000',
       borderWidth: 1,
       borderRadius:10,
       height: 50,
@@ -21,6 +25,7 @@ export const styles = StyleSheet.create({
     },
     icons:{
       fontSize: 30,
+      fontWeight: 'bold',
       textAlign: 'center',
     },
     button: {
@@ -33,8 +38,8 @@ export const styles = StyleSheet.create({
       marginRight:30,
       borderRadius:10,
       borderWidth: 1,
-      borderColor: '#fff',
-      backgroundColor: '#505050',
+      borderColor: '#483D8B',
+      backgroundColor: '#483D8B',
     },
     button_disabled: {
       marginTop:10,
@@ -46,8 +51,8 @@ export const styles = StyleSheet.create({
       marginRight:40,
       borderRadius:10,
       borderWidth: 1,
-      borderColor: '#fff',
-      backgroundColor: '#505050',
+      borderColor: '#483D8B',
+      backgroundColor: '#483D8B',
       opacity: 0.4,
     },
     buttontext: {
