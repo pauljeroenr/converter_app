@@ -1,7 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, Picker, TextInput, Button } from 'react-native';
+import { Text, View, Picker, TextInput, Button } from 'react-native';
 import { Header } from 'react-native-elements';
+import { styles } from './styles.js';
+import { fahrenheit2celsius, inch2cm, cup2ml, yard2m, ounce2ml } from "./converter_functions.js";
+
+var right_arrow = "\u2192";
 
 export default function App() {
   const [selectedValue, setSelectedValue] = useState("temp");
@@ -27,9 +31,9 @@ export default function App() {
                                                   }}
         >
           <Picker.Item label="Temperature" value="temp"/>
-          <Picker.Item label="Size" value="size"/>
           <Picker.Item label="Cooking" value="cook"/>
           <Picker.Item label="Volume" value="vol"/>
+          <Picker.Item label="Size" value="size"/>
           <Picker.Item label="Distance" value="dist"/>
         </Picker>
         <View style = {styles.inputField}>
@@ -40,7 +44,9 @@ export default function App() {
             onChangeText={text => onChangeText(text)}
             value={value}
           />
-          <View style = {{width: 15}}/>
+          <View style = {{width: 5}}/>
+          <Text style = {styles.icons}> {right_arrow} </Text>
+          <View style = {{width: 5}}/>
           <TextInput 
             style = {styles.inputText}
             keyboardType="numeric"
@@ -59,6 +65,8 @@ export default function App() {
                             onCalcText(cup2ml(value));
                           } else if (selectedValue === "dist") {
                             onCalcText(yard2m(value));
+                          } else if (selectedValue === "vol") {
+                            onCalcText(ounce2ml(value));
                           }
                   }}
           color = '#505050'
@@ -66,44 +74,7 @@ export default function App() {
         />
       </View>
       <View style = {{flex: 0.3}} />
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-  },
-  inputField: {
-    flex: 0.5,
-    flexDirection: 'row',
-  },
-  inputText:{
-    borderColor: 'gray',
-    borderWidth: 1,
-    height: 50,
-    width: 100,
-    textAlign: 'center',
-  },
-});
-
-function fahrenheit2celsius(fahrenheit) {
-  var result = Math.round((((fahrenheit - 32) / 1.8) + Number.EPSILON) * 100) / 100
-  return(result.toString())
-};
-function inch2cm(inch) {
-  var result = inch * 2.54
-  return(result.toString())
-};
-function cup2ml(cup) {
-  var result = cup * 236.588
-  return(result.toString())
-};
-function yard2m(yard) {
-  var result = yard * 0.9144
-  return(result.toString())
-};
