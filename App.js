@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
-import { Text, View, Picker, TextInput, Button } from 'react-native';
+import { Text, View, Picker, TextInput, TouchableOpacity } from 'react-native';
 import { Header } from 'react-native-elements';
 import { styles } from './styles.js';
 import { fahrenheit2celsius, inch2cm, cup2ml, yard2m, ounce2ml } from "./converter_functions.js";
@@ -44,18 +44,18 @@ export default function App() {
             onChangeText={text => onChangeText(text)}
             value={value}
           />
-          <View style = {{width: 5}}/>
-          <Text style = {styles.icons}> {right_arrow} </Text>
-          <View style = {{width: 5}}/>
+          <View style={{width: 5}}/>
+          <Text style={styles.icons}> {right_arrow} </Text>
+          <View style={{width: 5}}/>
           <TextInput 
-            style = {styles.inputText}
+            style={styles.inputText}
             keyboardType="numeric"
             placeholder="Output"
             editable={false}
             value={convValue}
           />
         </View>
-        <Button
+        <TouchableOpacity 
           disabled={value === ""}
           onPress={() => {if (selectedValue === "temp") {
                             onCalcText(fahrenheit2celsius(value));
@@ -69,9 +69,10 @@ export default function App() {
                             onCalcText(ounce2ml(value));
                           }
                   }}
-          color = '#505050'
-          title="Convert!"
-        />
+          style={value === "" ? styles.button_disabled : styles.button}
+        >
+          <Text style={styles.buttontext}> Convert! </Text>
+        </TouchableOpacity>
       </View>
       <View style = {{flex: 0.3}} />
       <StatusBar style="light" />
