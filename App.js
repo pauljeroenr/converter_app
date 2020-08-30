@@ -83,7 +83,6 @@ export default function App() {
           <Text style={styles.buttontext}> Convert! </Text>
         </TouchableOpacity>
       </View>
-      <Text>{(selectedUnit === "inch") ? 1 : 0}</Text>
       <View style = {{flex: 0.3}}/>
       <StatusBar style="light" />
     </View>
